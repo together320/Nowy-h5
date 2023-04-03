@@ -1,0 +1,71 @@
+html, body {
+  height: 100%;
+  background: linear-gradient(-45deg,#11238E,#11238E) fixed;
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.5s;
+}
+.page-enter,
+.page-leave-active {
+  opacity: 0;
+}
+.page-enter,
+.page-leave-to {
+  transition-delay: 200ms;
+}
+
+.PageTransition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.PageTransition__background.anim-in {
+  animation: 800ms cubic-bezier(0.535, 0, 0, 1) heightUp;
+  animation-fill-mode: forwards;
+}
+
+.PageTransition__background.anim-out {
+  bottom: auto;
+    top: 0;
+    animation: 800ms cubic-bezier(0.535, 0, 0, 1) heightDown;
+}
+
+.PageTransition__background {
+  position: absolute;
+  bottom: 0;
+  top: auto;
+  left: 0;
+  background: black;
+  width: 100%;
+  height: 0;
+
+}
+
+.PageTransition__logo.anim-in {
+  animation: 800ms cubic-bezier(0.535, 0, 0, 1) fadeInUp;
+  animation-fill-mode: forwards;
+}
+
+.PageTransition__logo.anim-out {
+  animation: 800ms cubic-bezier(0.535, 0, 0, 1) fadeOutUp;
+}
+
+.PageTransition__logo {
+  color: white;
+  font-size: 10vw;
+  opacity: 0;
+}
+
+.PageTransition__logo svg {
+  width: 200px;
+  display: block;
+}
