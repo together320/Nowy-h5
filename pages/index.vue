@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="loaded">
     <div class="fixed-header">
       <div class="header-container">
         <img style="width:24px" src="@/static/img/novylogo-2-min.png"/>&nbsp;&nbsp; View in Nowy app for better
@@ -8,46 +8,68 @@
     </div>
     <div style="padding:10px">
       <div style="display: flex">
-        <img class="header-img"
-             referrerpolicy="no-referrer"
-             src="@/static/img/default.png"
-        />
+        <head-avatar head-class="avatar-head" :thumbAvatar="postDetail.poster.avatar.url"></head-avatar>
         <div style="line-height: 40px; padding-left:10px;">
-          username
+          {{ postDetail.poster.displayName }}
         </div>
       </div>
     </div>
     <div>
       <van-swipe :autoplay="3000" lazy-render>
-        <van-swipe-item v-for="image in images" :key="image">
+        <van-swipe-item v-for="image in postDetail.imageUrls" :key="image">
           <img :src="image" referrerpolicy="no-referrer" style="width: 100%;object-fit: contain"/>
         </van-swipe-item>
       </van-swipe>
+    </div>
+    <div style="padding:10px;">
+      <span v-for="item in postDetail.imageInfo" style="padding-right: 2px;">
+      <van-tag v-if="item&&item.imagePlace" round type="success" size="large"><van-icon
+        name="location"/>&nbsp;{{ item.imagePlace.name }}</van-tag>
+      </span>
+    </div>
+    <div style="padding:10px;">
+      <div style="font-size: 20px;padding-bottom:15px;font-weight: bold">{{ postDetail.title }}</div>
+      <div style="white-space: pre-line">{{ postDetail.content }}</div>
+    </div>
+  </div>
+  <div v-else>
+    <div class="spinner">
+      <van-loading color="#1989fa" type="spinner" size="36px"/>
     </div>
   </div>
 </template>
 
 <script>
-import {debounce} from "@/utils/utils";
+import HeadAvatar from "@/pages/com/HeadAvatar";
 
 export default {
   head: {
-    title: '首页'
+    title: ''
   },
-  components: {},
+  components: {HeadAvatar},
   name: 'home',
   data() {
     return {
-      isLoaded: false,
-      images:[
-        'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2Fd5822089-da2c-4cf3-869b-c585a1235084%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1683036311&t=cb6f792d949468d8ba05783a964b7bfd',
-        'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2Fa97b0262-28a1-49f0-bec7-d7c0034926a8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1683036311&t=b57d7285635118e1da6a3e58091d6e5a',
-      ]
     };
   },
-  computed: {},
+  beforeMount() {
+    let postId = ''
+    if (this.$route.query.hasOwnProperty('postId')) {
+      postId = this.$route.query.postId
+      this.$store.dispatch('getPostDetail', {postId})
+    } else {
+      this.$notify({type: 'danger', message: "Can not find Post info. Please try again."});
+    }
+  },
+  computed: {
+    postDetail() {
+      return this.$store.getters["getPostDetail"]
+    },
+    loaded() {
+      return this.$store.getters["getLoaded"]
+    }
+  },
   mounted() {
-    this.isLoaded = true
   },
   methods: {},
 }
@@ -77,6 +99,20 @@ export default {
 }
 
 .header-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 45px;
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.avatar-head {
   width: 40px;
   height: 40px;
   border-radius: 45px;

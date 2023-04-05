@@ -8,15 +8,17 @@ export const state = () => ({
   activities: [],
   idxRankData: [],
   selectedActivity: 0,
-  rankData: {}
+  rankData: {},
+  postDetail: {},
+  loaded:false
 })
 
 export const getters = {
-  getTags(state) {
-    return state.tags
+  getPostDetail(state) {
+    return state.postDetail
   },
-  getIndexTabs(state) {
-    return state.index_tabs
+  getLoaded(state) {
+    return state.loaded
   },
   getActivities(state) {
     return state.activities
@@ -36,11 +38,12 @@ export const getters = {
 }
 
 export const mutations = {
-  setTags(state, payload) {
-    state.tags = payload
+  setPostDetail(state, payload) {
+    state.postDetail = payload
+    state.loaded = true
   },
-  setIdxRankData(state, payload) {
-    state.idxRankData = payload
+  setLoaded(state, payload) {
+    state.loaded = payload
   },
   setActivities(state, payload) {
     state.activities = payload
@@ -83,35 +86,13 @@ export const mutations = {
 }
 
 export const actions = {
-  //活动安排
-  getActivities({commit}) {
-    this.$axios.get(`/ind/times`).then(res => {
-      if (res.data.code === 0) {
-        commit('setActivities', res.data.data)
+  getPostDetail({commit},{postId}) {
+    commit('setLoaded',false)
+    this.$axios.get(`/posts/getPostDetails`,{params: { postId } }).then(res => {
+      if (res.status === 200 && res.data.length>0) {
+        commit('setPostDetail', res.data[0])
       } else {
-        commit('setActivities', [])
-        handleErrorRes(res)
-      }
-    })
-  },
-  //标签列表
-  getTags({commit}) {
-    this.$axios.get(`/ind/configs/IND_TAGS`).then(res => {
-      if (res.data.code === 0) {
-        commit('setTags', res.data.data)
-      } else {
-        commit('setTags', [])
-        handleErrorRes(res)
-      }
-    })
-  },
-  //指数排行
-  getIdxRank({commit},{timeCode}) {
-    this.$axios.get(`/ind/yieldsRanking/${timeCode}`).then(res => {
-      if (res.data.code === 0) {
-        commit('setIdxRankData', res.data.data)
-      } else {
-        commit('setIdxRankData', [])
+        commit('setPostDetail', [])
         handleErrorRes(res)
       }
     })
