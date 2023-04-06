@@ -52,7 +52,7 @@ export default {
 
   // You will need to add this:
    server: {
-     host: '127.0.0.1',
+     host: '0',
      port: '8080' // optional
    },
 
