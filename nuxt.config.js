@@ -53,7 +53,7 @@ export default {
   // You will need to add this:
    server: {
      host: '44.210.90.210',
-     port: '8080' // optional
+     port: '3000' // optional
    },
 
   features:{
