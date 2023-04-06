@@ -56,8 +56,7 @@ export default {
         postDetail,
       };
     } catch (error) {
-      console.log(error)
-      throw error
+      // Redirect to error page or 404 depending on server response
     }
   },
   components: {HeadAvatar},
@@ -68,11 +67,11 @@ export default {
   },
   head() {
     return {
-      title: this.postDetail.title,
+      title: this.postDetail?.title,
       meta: [{
           hid: 'og-image',
           name: 'og:image',
-          content: this.postDetail.imageUrls[0]
+          content: this.postDetail?.imageUrls[0]
         }]
     }
   },
