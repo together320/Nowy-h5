@@ -49,11 +49,11 @@ export default {
 
     // fetch data from API
     try {
-      const postDetail = await store.dispatch('getPostDetail', {
+      const carDetail = await store.dispatch('getPostDetail', {
         postId
       });
       return {
-        postDetail,
+        carDetail,
       };
     } catch (error) {
       // Redirect to error page or 404 depending on server response
@@ -67,27 +67,27 @@ export default {
   },
   head() {
     return {
-      title: this.postDetail?.title,
+      title: this.carDetail?.title,
       meta: [{
           hid: 'og-image',
           name: 'og:image',
-          content: this.postDetail?.imageUrls[0]
+          content: this.carDetail?.imageUrls[0]
         }]
     }
   },
-  beforeMount() {
+  beforeCreate() {
     let postId = ''
     if (this.$route.query.hasOwnProperty('postId')) {
-      // postId = this.$route.query.postId
-      // this.$store.dispatch('getPostDetail', {postId})
+      postId = this.$route.query.postId
+      this.$store.dispatch('getPostDetail', {postId})
     } else {
       this.$notify({type: 'danger', message: "Can not find Post info. Please try again."});
     }
   },
   computed: {
-    // postDetail() {
-    //   return this.$store.getters["getPostDetail"]
-    // },
+    postDetail() {
+      return this.$store.getters["getPostDetail"]
+    },
     loaded() {
       return this.$store.getters["getLoaded"]
     }

@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "nuxt --dotenv .env.pro",
-    "build": "nuxt generate --dotenv .env.pro"
+    "build": "nuxt generate --dotenv .env.pro",
+    "start-pro": "nuxt start --dotenv .env.pro"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
