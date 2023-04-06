@@ -88,12 +88,14 @@ export const mutations = {
 export const actions = {
   getPostDetail({commit},{postId}) {
     commit('setLoaded',false)
-    this.$axios.get(`/posts/getPostDetails`,{params: { postId } }).then(res => {
+    return this.$axios.get(`/posts/getPostDetails`,{params: { postId } }).then(res => {
       if (res.status === 200 && res.data.length>0) {
         commit('setPostDetail', res.data[0])
+        return res.data[0]
       } else {
         commit('setPostDetail', [])
         handleErrorRes(res)
+        return []
       }
     })
   },

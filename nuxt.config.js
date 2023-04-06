@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: '指数活动',
+    title: '',
     htmlAttrs: {
       lang: 'en'
     },
@@ -50,10 +50,10 @@ export default {
   build: {},
 
   // You will need to add this:
-  //  server: {
-  //    host: '172.23.11.45',
-  //    port: '3000' // optional
-  //  },
+   server: {
+     host: '172.23.11.45',
+     port: '3000' // optional
+   },
 
   features:{
     transitions: false
