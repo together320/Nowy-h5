@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loaded">
+  <div v-if="loaded" style="max-width: 414px;margin:auto">
     <div class="fixed-header">
       <div class="header-container">
         <img style="width:24px" src="@/static/img/novylogo-2-min.png"/>&nbsp;&nbsp; View in Nowy app for better
@@ -102,6 +102,7 @@ export default {
 <style scoped>
 .fixed-header {
   width: 90%;
+  max-width: 414px;
   background: #13056D;
   padding: 10px 0;
   font-style: normal;
