@@ -51,10 +51,10 @@ export default {
   build: {},
 
   // You will need to add this:
-  //  server: {
-  //    host: '172.23.11.45',
-  //    port: '3000' // optional
-  //  },
+   server: {
+     host: '44.210.90.210',
+     port: '8080' // optional
+   },
 
   features:{
     transitions: false
