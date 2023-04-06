@@ -68,13 +68,13 @@ export default {
    */
   publicRuntimeConfig: {
     axios: {
-      baseURL: process.env.BASEURL
+      baseURL: 'https://api.nowy.io/'
     }
   },
   router: {
-    base: process.env.BASE
+    base: '1'
   },
   generate:{
-    dir:process.env.DIR
+    dir:'dist'
   }
 }
