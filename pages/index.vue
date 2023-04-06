@@ -67,11 +67,11 @@ export default {
   },
   head() {
     return {
-      title: this.postDetail?.title,
+      title: this.postDetail.title,
       meta: [{
           hid: 'og-image',
           name: 'og:image',
-          content: this.postDetail?.imageUrls[0]
+          content: this.postDetail.imageUrls[0]
         }]
     }
   },
