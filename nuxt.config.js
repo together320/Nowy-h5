@@ -1,4 +1,5 @@
 export default {
+  target:'static',
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: '',
@@ -50,10 +51,10 @@ export default {
   build: {},
 
   // You will need to add this:
-   server: {
-     host: '172.23.11.45',
-     port: '3000' // optional
-   },
+  //  server: {
+  //    host: '172.23.11.45',
+  //    port: '3000' // optional
+  //  },
 
   features:{
     transitions: false

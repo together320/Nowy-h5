@@ -86,7 +86,7 @@ export const mutations = {
 }
 
 export const actions = {
-  getPostDetail({commit},{postId}) {
+  async getPostDetail({commit},{postId}) {
     commit('setLoaded',false)
     return this.$axios.get(`/posts/getPostDetails`,{params: { postId } }).then(res => {
       if (res.status === 200 && res.data.length>0) {

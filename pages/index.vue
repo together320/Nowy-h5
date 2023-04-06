@@ -56,7 +56,8 @@ export default {
         postDetail,
       };
     } catch (error) {
-      // Redirect to error page or 404 depending on server response
+      console.log(error)
+      throw error
     }
   },
   components: {HeadAvatar},
@@ -78,11 +79,16 @@ export default {
   beforeMount() {
     let postId = ''
     if (this.$route.query.hasOwnProperty('postId')) {
+      // postId = this.$route.query.postId
+      // this.$store.dispatch('getPostDetail', {postId})
     } else {
       this.$notify({type: 'danger', message: "Can not find Post info. Please try again."});
     }
   },
   computed: {
+    // postDetail() {
+    //   return this.$store.getters["getPostDetail"]
+    // },
     loaded() {
       return this.$store.getters["getLoaded"]
     }
