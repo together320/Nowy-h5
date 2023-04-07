@@ -79,7 +79,9 @@ export default {
     let postId = ''
     if (this.$route.query.hasOwnProperty('postId')) {
       postId = this.$route.query.postId
-      this.$store.dispatch('getPostDetail', {postId})
+      this.$store.dispatch('getPostDetail', {postId}).then(res=>{
+        window.location = `nowy://${this.postDetail.postType==='note'?'post':'trip'}/${this.$route.query.postId}`;
+      })
     } else {
       this.$notify({type: 'danger', message: "Can not find Post info. Please try again."});
     }
