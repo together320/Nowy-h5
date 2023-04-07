@@ -1,12 +1,12 @@
 <template>
-  <div v-if="loaded" style="max-width: 414px;margin:auto">
+  <div v-if="loaded" style="max-width: 414px;margin:auto;">
     <div class="fixed-header">
-      <div class="header-container">
+      <div class="header-container" @click="openApp">
         <img style="width:24px" src="@/static/img/novylogo-2-min.png"/>&nbsp;&nbsp; View in Nowy app for better
         experience
       </div>
     </div>
-    <div style="padding:60px 10px 10px 10px">
+    <div style="padding:10px;">
       <div style="display: flex">
         <head-avatar head-class="avatar-head" :thumbAvatar="postDetail.poster.avatar.url"></head-avatar>
         <div style="line-height: 40px; padding-left:10px;">
@@ -27,9 +27,9 @@
         name="location"/>&nbsp;{{ item.imagePlace.name }}</van-tag>
       </span>
     </div>
-    <div style="padding:10px;">
+    <div style="padding:10px;" >
       <div style="font-size: 20px;padding-bottom:15px;font-weight: bold">{{ postDetail.title }}</div>
-      <div style="white-space: pre-line">{{ postDetail.content }}</div>
+      <div style="white-space: pre-line;padding-bottom:50px">{{ postDetail.content }}</div>
     </div>
   </div>
   <div v-else>
@@ -94,7 +94,14 @@ export default {
   },
   mounted() {
   },
-  methods: {},
+  methods: {
+    openApp(){
+      window.location = `nowy://${this.postDetail.postType==='note'?'post':'trip'}/${this.$route.query.postId}`;
+      setTimeout(function() {
+        window.location = 'itms-apps://itunes.apple.com/us/app/nowy-best-travel-community/id1621810481'
+      }, 500);
+    }
+  },
 }
 </script>
 <style src="./css/index.css"/>
@@ -102,8 +109,9 @@ export default {
 <style scoped>
 .fixed-header {
   width: 90%;
+  bottom:0;
   max-width: 414px;
-  background: #13056D;
+  background: linear-gradient(180deg, #252AAA 0%, #2571E1 100%);
   padding: 10px 0;
   font-style: normal;
   font-weight: 700;
