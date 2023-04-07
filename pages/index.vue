@@ -67,7 +67,7 @@ export default {
   },
   head() {
     return {
-      title: this.carDetail?.title,
+      title: this.carDetail?.poster.displayName +'on Nowy: '+ this.carDetail?.title,
       meta: [{
           hid: 'og-image',
           name: 'og:image',
