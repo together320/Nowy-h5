@@ -97,9 +97,9 @@ export default {
   methods: {
     openApp(){
       window.location = `nowy://${this.postDetail.postType==='note'?'post':'trip'}/${this.$route.query.postId}`;
-      setTimeout(function() {
-        window.location = 'itms-apps://itunes.apple.com/us/app/nowy-best-travel-community/id1621810481'
-      }, 500);
+      // setTimeout(function() {
+      //   window.location = 'itms-apps://itunes.apple.com/us/app/nowy-best-travel-community/id1621810481'
+      // }, 500);
     }
   },
 }
