@@ -22,9 +22,9 @@
       </van-swipe>
     </div>
     <div style="padding:10px;">
-      <span v-for="item in postDetail.imageInfo" style="padding-right: 2px;">
-      <van-tag v-if="item&&item.imagePlace" round type="success" size="large"><van-icon
-        name="location"/>&nbsp;{{ item.imagePlace.name }}</van-tag>
+      <span v-for="item in convertedPlaces" style="padding-right: 2px;">
+      <van-tag v-if="item" round type="success" size="large"><van-icon
+        name="location"/>&nbsp;{{ item }}</van-tag>
       </span>
     </div>
     <div style="padding:10px;" >
@@ -63,6 +63,7 @@ export default {
   name: 'home',
   data() {
     return {
+      convertedPlaces:[]
     };
   },
   head() {
@@ -88,7 +89,20 @@ export default {
   },
   computed: {
     postDetail() {
-      return this.$store.getters["getPostDetail"]
+      const pd = this.$store.getters["getPostDetail"]
+      const imageInfos = pd.imageInfo
+      const placeSet = new Set()
+      if(pd){
+        for (let key in imageInfos) {
+          if (imageInfos.hasOwnProperty(key)) {
+            if(imageInfos[key].hasOwnProperty("imagePlace")){
+              placeSet.add(imageInfos[key].imagePlace.name)
+            }
+          }
+        }
+        this.convertedPlaces = [...placeSet]
+      }
+      return pd
     },
     loaded() {
       return this.$store.getters["getLoaded"]
