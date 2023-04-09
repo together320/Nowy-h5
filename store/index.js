@@ -10,12 +10,16 @@ export const state = () => ({
   selectedActivity: 0,
   rankData: {},
   postDetail: {},
+  placeDetail: {},
   loaded:false
 })
 
 export const getters = {
   getPostDetail(state) {
     return state.postDetail
+  },
+  getPlaceDetail(state) {
+    return state.placeDetail
   },
   getLoaded(state) {
     return state.loaded
@@ -40,6 +44,10 @@ export const getters = {
 export const mutations = {
   setPostDetail(state, payload) {
     state.postDetail = payload
+    state.loaded = true
+  },
+  setPlaceDetail(state, payload) {
+    state.placeDetail = payload
     state.loaded = true
   },
   setLoaded(state, payload) {
@@ -94,6 +102,19 @@ export const actions = {
         return res.data[0]
       } else {
         commit('setPostDetail', [])
+        handleErrorRes(res)
+        return []
+      }
+    })
+  },
+  async getPlaceDetail({commit},{placeId}) {
+    commit('setLoaded',false)
+    return this.$axios.get(`/posts/getPlaceDetails`,{params: { placeId } }).then(res => {
+      if (res.status === 200 && res.data.length>0) {
+        commit('setPlaceDetail', res.data[0])
+        return res.data[0]
+      } else {
+        commit('setPlaceDetail', [])
         handleErrorRes(res)
         return []
       }
