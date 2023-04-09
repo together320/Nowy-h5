@@ -52,7 +52,7 @@
       </div>
       <div style="padding-top:10px">
         <span style="font-weight: bold;font-size: 18px">Contact : </span>
-        <span>{{placeDetail.phone}}</span>
+        <span><a :href="'tel:'+placeDetail.phone">{{placeDetail.phone}}</a></span>
       </div>
     </div>
 
