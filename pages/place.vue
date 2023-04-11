@@ -14,7 +14,7 @@
       </van-swipe>
     </div>
     <div v-else>
-      <van-swipe :autoplay="50000" lazy-render>
+      <van-swipe :autoplay="5000" lazy-render>
         <van-swipe-item v-for="image in defaultImgs" :key="image">
           <img :src="image" referrerpolicy="no-referrer" style="width: 62vh;object-fit: contain"/>
         </van-swipe-item>
@@ -102,7 +102,7 @@ export default {
       meta: [{
         hid: 'og-image',
         name: 'og:image',
-        content: this.carDetail?.photo
+        content: this.carDetail?.photo_url[0]
       }]
     }
   },
