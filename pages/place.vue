@@ -188,6 +188,6 @@ export default {
 }
 
 .p-img{
-  height:100vh;object-fit: cover;width:100vh;
+  height:100vh;object-fit: cover;width:100%;
 }
 </style>
