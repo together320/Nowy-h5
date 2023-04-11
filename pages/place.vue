@@ -7,14 +7,14 @@
       </div>
     </div>
     <div v-if="placeDetail.photo_url">
-      <van-swipe :autoplay="5000" lazy-render>
+      <van-swipe :autoplay="5000" lazy-render :show-indicators="false">
         <van-swipe-item v-for="image in placeDetail.photo_url" :key="image">
           <img :src="image" referrerpolicy="no-referrer" class="p-img"/>
         </van-swipe-item>
       </van-swipe>
     </div>
     <div v-else>
-      <van-swipe :autoplay="5000" lazy-render>
+      <van-swipe :autoplay="5000" lazy-render :show-indicators="false">
         <van-swipe-item v-for="image in defaultImgs" :key="image">
           <img :src="image" referrerpolicy="no-referrer" style="width: 62vh;object-fit: contain"/>
         </van-swipe-item>
@@ -185,9 +185,11 @@ export default {
   margin: auto;
   height: 100vh;
   overflow: hidden;
+  background:linear-gradient(178.6deg, rgb(20, 36, 50) 11.8%, grey 83.8%);
 }
 
 .p-img{
-  height:100vh;object-fit: cover;width:100%;
+  /*height:100vh;object-fit: cover;*/
+  width:100%;
 }
 </style>
