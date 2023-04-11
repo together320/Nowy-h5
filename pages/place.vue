@@ -9,18 +9,18 @@
     <div v-if="placeDetail.photo_url">
       <van-swipe :autoplay="5000" lazy-render>
         <van-swipe-item v-for="image in placeDetail.photo_url" :key="image">
-          <img :src="image" referrerpolicy="no-referrer" style="height:62vh;object-fit: contain"/>
+          <img :src="image" referrerpolicy="no-referrer" class="p-img"/>
         </van-swipe-item>
       </van-swipe>
     </div>
     <div v-else>
-      <van-swipe :autoplay="5000" lazy-render>
+      <van-swipe :autoplay="50000" lazy-render>
         <van-swipe-item v-for="image in defaultImgs" :key="image">
           <img :src="image" referrerpolicy="no-referrer" style="width: 62vh;object-fit: contain"/>
         </van-swipe-item>
       </van-swipe>
     </div>
-    <div style="padding:10px 20px 60px 20px">
+    <div style="padding:10px 23px 60px;position: fixed;bottom:90px; color:#FFFFFF">
       <div style="display: flex">
         <div style="line-height: 40px; font-weight: bold;font-size: 24px;">
           {{ placeDetail.name }}
@@ -33,13 +33,17 @@
           </div>
         </div>
         <div style="padding-top:10px">
-          <span v-for="item in Object.values(placeDetail.about)" style="padding-right: 2px;">
+          <span v-for="item in Object.values(placeDetail.about)" style="padding-right: 5px;line-height: 2">
       <van-tag v-if="item" round type="success" size="large"><van-icon
         name="location"/>&nbsp;{{ Object.keys(item)[0] }}</van-tag>
       </span>
         </div>
       </div>
-      <div style="padding-top:10px">
+    </div>
+    <div
+      style="border-radius: 45px;border: 1px solid #FFFFFF;background-color: #FFFFFF;width: 100%;position: fixed;bottom:-40px;height:180px">
+      <div style="padding:10px 25px 60px">
+      <div style="padding-top:10px;">
         <span style="font-weight: bold;font-size: 18px">Rating : </span>
         <van-rate
           v-model="placeDetail.rating"
@@ -48,15 +52,14 @@
           void-icon="star"
           void-color="#eee"
         />
-        {{placeDetail.rating}}
+        {{ placeDetail.rating }}
       </div>
       <div style="padding-top:10px">
         <span style="font-weight: bold;font-size: 18px">Contact : </span>
-        <span><a :href="'tel:'+placeDetail.phone">{{placeDetail.phone}}</a></span>
+        <span><a :href="'tel:'+placeDetail.phone">{{ placeDetail.phone }}</a></span>
+      </div>
       </div>
     </div>
-
-
   </div>
   <div v-else>
     <div class="spinner">
@@ -180,5 +183,11 @@ export default {
 .container {
   max-width: 414px;
   margin: auto;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.p-img{
+  height:100vh;object-fit: none;width:100%
 }
 </style>
