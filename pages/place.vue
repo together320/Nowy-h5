@@ -46,7 +46,7 @@
       <div style="padding-top:10px;">
         <span style="font-weight: bold;font-size: 18px">Rating : </span>
         <van-rate
-          v-model="placeDetail.rating"
+          v-model="parseFloat(placeDetail.rating).toFixed(1)"
           :size="20"
           color="#ffd21e"
           void-icon="star"
