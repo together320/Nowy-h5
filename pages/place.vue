@@ -20,7 +20,7 @@
         </van-swipe-item>
       </van-swipe>
     </div>
-    <div style="padding:10px 23px 60px;position: fixed;bottom:90px; color:#FFFFFF">
+    <div style="padding:10px 23px 60px;position: fixed;bottom:90px; color:#FFFFFF;max-width: 414px;">
       <div style="display: flex">
         <div style="line-height: 40px; font-weight: bold;font-size: 24px;">
           {{ placeDetail.name }}
@@ -41,7 +41,7 @@
       </div>
     </div>
     <div
-      style="border-radius: 45px;border: 1px solid #FFFFFF;background-color: #FFFFFF;width: 100%;position: fixed;bottom:-40px;height:180px">
+      style="border-radius: 45px;border: 1px solid #FFFFFF;background-color: #FFFFFF;width: 100%;position: fixed;bottom:-40px;max-width:414px;height:180px">
       <div style="padding:10px 25px 60px">
       <div style="padding-top:10px;">
         <span style="font-weight: bold;font-size: 18px">Rating : </span>
