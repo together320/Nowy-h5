@@ -189,7 +189,7 @@ export default {
 }
 
 .p-img{
-  /*height:100vh;object-fit: cover;*/
+  height:100vh;object-fit: none;object-position: center;
   width:100%;
 }
 </style>
