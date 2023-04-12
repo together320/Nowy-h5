@@ -102,7 +102,7 @@ export default {
       meta: [{
         hid: 'og-image',
         name: 'og:image',
-        content: this.carDetail?.photoUrl[0]
+        content: this.carDetail?.photoUrl?this.carDetail?.photoUrl[0]:this.carDetail?.photo
       }]
     }
   },
