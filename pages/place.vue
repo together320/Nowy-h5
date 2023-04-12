@@ -16,7 +16,7 @@
     <div v-else>
       <van-swipe :autoplay="5000" lazy-render :show-indicators="false">
         <van-swipe-item v-for="image in defaultImgs" :key="image">
-          <img :src="image" referrerpolicy="no-referrer" style="width: 62vh;object-fit: contain"/>
+          <img :src="image" referrerpolicy="no-referrer" class="p-img" style="height: 60vh"/>
         </van-swipe-item>
       </van-swipe>
     </div>
@@ -32,7 +32,7 @@
             <van-icon name="location"/>&nbsp;{{ placeDetail.formattedAddress }}
           </div>
         </div>
-        <div style="padding-top:10px">
+        <div style="padding-top:10px" v-if="placeDetail.about">
           <span v-for="item in Object.values(placeDetail.about)" style="padding-right: 5px;line-height: 2">
       <van-tag v-if="item" round type="success" size="large"><van-icon
         name="location"/>&nbsp;{{ Object.keys(item)[0] }}</van-tag>
@@ -97,13 +97,13 @@ export default {
     };
   },
   head() {
-    console.log(this.carDetail?.photo_url[0])
+    let metaImg = this.carDetail.hasOwnProperty('photoUrl')?this.carDetail.photoUrl[0]:this.carDetail.photo
     return {
       title: this.carDetail?.name,
       meta: [{
         hid: 'og-image',
         name: 'og:image',
-        content: this.carDetail?.photo_url[0]
+        content: metaImg
       }]
     }
   },
