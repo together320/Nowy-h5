@@ -2,8 +2,7 @@
   <div v-if="loaded" class="container">
     <div class="fixed-header">
       <div class="header-container" @click="openApp">
-        <img style="width:24px" src="@/static/img/novylogo-2-min.png"/>&nbsp;&nbsp; View in Nowy app for better
-        experience
+        <img style="width:24px" src="@/static/img/novylogo-2-min.png"/>&nbsp;&nbsp; View in Nowy app
       </div>
     </div>
     <div v-if="placeDetail.photo_url">
@@ -189,7 +188,7 @@ export default {
 }
 
 .p-img{
-  height:80vh;object-fit: none;object-position: center;
+  min-height:45vh;max-height: 80vh;object-fit: cover;object-position: center;
   width:100%;
 }
 </style>

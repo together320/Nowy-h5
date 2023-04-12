@@ -2,8 +2,7 @@
   <div v-if="loaded" style="max-width: 414px;margin:auto;">
     <div class="fixed-header">
       <div class="header-container" @click="openApp">
-        <img style="width:24px" src="@/static/img/novylogo-2-min.png"/>&nbsp;&nbsp; View in Nowy app for better
-        experience
+        <img style="width:24px" src="@/static/img/novylogo-2-min.png"/>&nbsp;&nbsp; View in Nowy app
       </div>
     </div>
     <div style="padding:10px;">
