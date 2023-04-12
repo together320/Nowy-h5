@@ -97,13 +97,12 @@ export default {
     };
   },
   head() {
-    let metaImg = this.carDetail.hasOwnProperty('photoUrl')?this.carDetail.photoUrl[0]:this.carDetail.photo
     return {
       title: this.carDetail?.name,
       meta: [{
         hid: 'og-image',
         name: 'og:image',
-        content: metaImg
+        content: this.carDetail?.photoUrl[0]
       }]
     }
   },
