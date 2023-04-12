@@ -20,7 +20,7 @@
         </van-swipe-item>
       </van-swipe>
     </div>
-    <div style="padding:10px 23px 60px;position: fixed;bottom:170px; color:#FFFFFF;max-width: 414px;">
+    <div style="padding:10px 23px 60px;position: fixed;bottom:155px; color:#FFFFFF;max-width: 414px;">
       <div style="display: flex">
         <div style="line-height: 40px; font-weight: bold;font-size: 24px;">
           {{ placeDetail.name }}
@@ -41,7 +41,7 @@
       </div>
     </div>
     <div
-      style="border-radius: 45px;border: 1px solid #FFFFFF;background-color: #FFFFFF;width: 100%;position: fixed;bottom:-40px;max-width:414px;height:250px">
+      style="border-radius: 45px;border: 1px solid #FFFFFF;background-color: #FFFFFF;width: 100%;position: fixed;bottom:-40px;max-width:414px;height:220px">
       <div style="padding:25px 25px 60px">
       <div style="padding-top:10px;">
         <span style="font-weight: bold;font-size: 18px">Rating : </span>
@@ -97,6 +97,7 @@ export default {
     };
   },
   head() {
+    console.log(this.carDetail?.photo_url[0])
     return {
       title: this.carDetail?.name,
       meta: [{
@@ -141,18 +142,18 @@ export default {
 
 <style scoped>
 .fixed-header {
-  width: 90%;
+  width: 100%;
   bottom: 0;
   max-width: 414px;
-  background: linear-gradient(180deg, #252AAA 0%, #2571E1 100%);
   padding: 10px 0;
+  background: #13056D;
+  opacity: 0.8;
   font-style: normal;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 18px;
   color: #fff;
-  margin: 2px auto;
-  border-radius: 10px;
+  margin: auto;
   position: fixed;
   z-index: 9999;
   left: 50%;

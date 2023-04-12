@@ -124,18 +124,18 @@ export default {
 
 <style scoped>
 .fixed-header {
-  width: 90%;
+  width: 100%;
   bottom:0;
   max-width: 414px;
-  background: linear-gradient(180deg, #252AAA 0%, #2571E1 100%);
+  background: #13056D;
+  opacity: 0.8;
   padding: 10px 0;
   font-style: normal;
   font-weight: 700;
   font-size: 12px;
   line-height: 18px;
   color: #fff;
-  margin: 2px auto;
-  border-radius: 10px;
+  margin: auto;
   position: fixed;
   z-index: 9999;
   left: 50%;
