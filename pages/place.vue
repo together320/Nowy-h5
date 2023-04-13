@@ -19,7 +19,7 @@
         </van-swipe-item>
       </van-swipe>
     </div>
-    <div style="padding:10px 23px 60px;position: fixed;bottom:155px; color:#FFFFFF;max-width: 414px;">
+    <div style="padding:10px 23px 60px;position: fixed;bottom:210px; color:#FFFFFF;max-width: 414px;">
       <div style="display: flex">
         <div style="line-height: 40px; font-weight: bold;font-size: 24px;">
           {{ placeDetail.name }}
@@ -33,14 +33,13 @@
         </div>
         <div style="padding-top:10px" v-if="placeDetail.about">
           <span v-for="item in Object.values(placeDetail.about)" style="padding-right: 5px;line-height: 2">
-      <van-tag v-if="item" round type="success" size="large"><van-icon
-        name="location"/>&nbsp;{{ Object.keys(item)[0] }}</van-tag>
+      <van-tag v-if="item" round type="success" size="large">&nbsp;{{ Object.keys(item)[0] }}</van-tag>
       </span>
         </div>
       </div>
     </div>
     <div
-      style="border-radius: 45px;border: 1px solid #FFFFFF;background-color: #FFFFFF;width: 100%;position: fixed;bottom:-40px;max-width:414px;height:220px">
+      style="border-radius: 45px;border: 1px solid #FFFFFF;background-color: #FFFFFF;width: 100%;position: fixed;bottom:-40px;max-width:414px;height:240px">
       <div style="padding:25px 25px 60px">
       <div style="padding-top:10px;">
         <span style="font-weight: bold;font-size: 18px">Rating : </span>
@@ -184,11 +183,12 @@ export default {
   margin: auto;
   height: 100vh;
   overflow: hidden;
-  background:linear-gradient(178.6deg, rgb(20, 36, 50) 11.8%, grey 83.8%);
+  background:linear-gradient(0deg, rgba(0, 0, 0, 1), rgba(27, 107, 42, 0.1));
+  background-size:cover;
 }
 
 .p-img{
-  min-height:45vh;max-height: 80vh;object-fit: cover;object-position: center;
-  width:100%;
+  min-height:493px;object-fit: fill;object-position: center;
+  max-width:50vh;
 }
 </style>
