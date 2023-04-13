@@ -189,6 +189,6 @@ export default {
 
 .p-img{
   min-height:493px;object-fit: fill;object-position: center;
-  max-width:50vh;
+  max-width:100%;
 }
 </style>
