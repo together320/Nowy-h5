@@ -1,5 +1,3 @@
-# fpfp (找人找项目Find Person Find Project)
-
 ## Build Setup 构建步骤
 
 ```bash
