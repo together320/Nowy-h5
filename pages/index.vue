@@ -7,7 +7,7 @@
     </div>
     <div style="padding:10px;">
       <div style="display: flex">
-        <head-avatar head-class="avatar-head" :thumbAvatar="postDetail.poster.avatar.url"></head-avatar>
+        <head-avatar head-class="avatar-head" :thumbAvatar="postDetail.poster.hasOwnProperty('avatar')?postDetail.poster.avatar.url:''"></head-avatar>
         <div style="line-height: 40px; padding-left:10px;">
           {{ postDetail.poster.displayName }}
         </div>
