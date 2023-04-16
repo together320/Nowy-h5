@@ -96,7 +96,7 @@ export default {
   },
   head() {
     return {
-      title: this.carDetail?.name,
+      title: this.carDetail?.name +' on Nowy',
       meta: [{
         hid: 'og-image',
         name: 'og:image',
