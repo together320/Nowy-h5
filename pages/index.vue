@@ -73,7 +73,7 @@ export default {
       meta: [{
           hid: 'og-image',
           name: 'og:image',
-          content: this.carDetail.pImg
+          content: 'https://api.nowy.io/assets/'+this.carDetail.pImg
         }]
     }
   },
