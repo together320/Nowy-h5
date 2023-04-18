@@ -99,7 +99,7 @@ export const actions = {
     return this.$axios.get(`/posts/getPostDetails`,{params: { postId } }).then(res => {
       if (res.data.code === 0 && res.data.data.length>0) {
         commit('setPostDetail', res.data.data[0])
-        return res.data.data[0]
+        return res.data
       } else {
         commit('setPostDetail', [])
         handleErrorRes(res)

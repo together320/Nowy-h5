@@ -48,9 +48,11 @@ export default {
 
     // fetch data from API
     try {
-      const carDetail = await store.dispatch('getPostDetail', {
+      const data = await store.dispatch('getPostDetail', {
         postId
       });
+      let carDetail = data.data[0]
+      carDetail.pImg = data.headImg
       return {
         carDetail,
       };
@@ -71,7 +73,7 @@ export default {
       meta: [{
           hid: 'og-image',
           name: 'og:image',
-          content: this.carDetail?.imageUrls[0]
+          content: this.carDetail.pImg
         }]
     }
   },
