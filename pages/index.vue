@@ -52,9 +52,10 @@ export default {
         postId
       });
       let carDetail = data.data[0]
-      carDetail.pImg = data.headImg
+      const pImg = data.headImg
       return {
         carDetail,
+        pImg,
       };
     } catch (error) {
       // Redirect to error page or 404 depending on server response
@@ -73,7 +74,7 @@ export default {
       meta: [{
           hid: 'og-image',
           name: 'og:image',
-          content: 'https://api.nowy.io/assets/'+this.carDetail.pImg
+          content: 'https://api.nowy.io/assets/'+this.pImg
         }]
     }
   },
