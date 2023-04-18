@@ -97,9 +97,9 @@ export const actions = {
   async getPostDetail({commit},{postId}) {
     commit('setLoaded',false)
     return this.$axios.get(`/posts/getPostDetails`,{params: { postId } }).then(res => {
-      if (res.status === 200 && res.data.length>0) {
-        commit('setPostDetail', res.data[0])
-        return res.data[0]
+      if (res.data.code === 0 && res.data.data.length>0) {
+        commit('setPostDetail', res.data.data[0])
+        return res.data.data[0]
       } else {
         commit('setPostDetail', [])
         handleErrorRes(res)
