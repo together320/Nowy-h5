@@ -36,7 +36,7 @@ export default {
     '@/plugins/vant',
     '@/plugins/router',
     '@/plugins/axios',
-    { src: '@/plugins/calendar', mode: 'client' }
+    '@/plugins/vueGoogleMaps'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -49,13 +49,17 @@ export default {
   modules: ['@nuxtjs/axios'],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    transpile: [
+      'vue2-google-maps'
+    ],
+  },
 
   // You will need to add this:
-   server: {
-     host: '0',
-     port: '8080' // optional
-   },
+  //  server: {
+  //    host: '192.168.1.103',
+  //    port: '8080' // optional
+  //  },
 
   features:{
     transitions: false
