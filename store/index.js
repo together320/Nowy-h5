@@ -1,4 +1,5 @@
 import {handleErrorRes} from "@/utils/utils";
+import * as VueGoogleMaps from "vue2-google-maps";
 
 export const state = () => ({
   tags: [],
@@ -10,13 +11,25 @@ export const state = () => ({
   selectedActivity: 0,
   rankData: {},
   postDetail: {},
+  postRoute: {},
   placeDetail: {},
-  loaded:false
+  loaded:false,
+  pArray:[],
+  rArray:[]
 })
 
 export const getters = {
   getPostDetail(state) {
     return state.postDetail
+  },
+  getPArray(state) {
+    return state.pArray
+  },
+  getRArray(state) {
+    return state.rArray
+  },
+  getPostRoute(state) {
+    return state.postRoute
   },
   getPlaceDetail(state) {
     return state.placeDetail
@@ -44,6 +57,32 @@ export const getters = {
 export const mutations = {
   setPostDetail(state, payload) {
     state.postDetail = payload
+    state.loaded = true
+  },
+  setRArray(state,payload){
+    state.rArray = payload
+  },
+  setPostRoute(state, payload) {
+    state.postRoute = payload
+    let ps = payload.places
+    let pArray = []
+    for (const p of ps) {
+      let o = {position: {lat: p.coordinate.latitude, lng:p.coordinate.longitude,icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          label: { color: '#d21171', fontWeight: 'bold', fontSize: '14px', text: '2-1' }}}
+      pArray.push(o)
+    }
+    let rs = payload.tripPlans
+    let rArray = []
+    for (const r of rs) {
+      let text = r.route.toString();
+      if (text) {
+        let br = JSON.parse(text);
+        rArray.push(br)
+      }
+    }
+    console.log(rArray)
+    state.rArray = rArray
+    state.pArray = pArray
     state.loaded = true
   },
   setPlaceDetail(state, payload) {
@@ -101,7 +140,20 @@ export const actions = {
         commit('setPostDetail', res.data.data[0])
         return res.data
       } else {
-        commit('setPostDetail', [])
+        commit('setPostDetail', {})
+        handleErrorRes(res)
+        return []
+      }
+    })
+  },
+  async getPostRoute({commit},{postId}) {
+    commit('setLoaded',false)
+    return this.$axios.get(`/posts/getPostRoute`,{params: { postId } }).then(res => {
+      if (res.status === 200 && res.data.length>0) {
+        commit('setPostRoute', res.data[0])
+        return res.data
+      } else {
+        commit('setPostRoute', {})
         handleErrorRes(res)
         return []
       }
