@@ -9,7 +9,7 @@
       <div style="font-size: 20px;padding-bottom:15px;font-weight: bold">{{ postRoute.title }}</div>
       <div style="white-space: pre-line;">{{ postRoute.content }}</div>
     </div>
-    <div style="padding: 10px">
+    <div style="padding: 10px 0">
       <gmap-map v-bind:center="center" v-bind:zoom="12" style="max-width: 414px; height:300px">
         <gmap-polyline v-show="show0" v-bind:path.sync="path0" v-bind:options="{ strokeColor:'#000000'}">
         </gmap-polyline>
@@ -63,13 +63,25 @@
         />
       </gmap-map>
     </div>
+    <div style="padding: 10px 10px">
+      <van-icon name="clock-o" color="#000000"/>&nbsp;Total on route:<span
+      style="font-weight: bold;font-size: 18px">{{
+        toHoursAndMinutes(rArray.reduce((partialSum, a) => partialSum + a.durationValue, 0))
+      }}</span>
+    </div>
     <div>
-      <div v-for="(item,index) in postRoute.tripPlans" style="padding:10px 10px 5px 10px">
-        <img style="object-fit: contain;width: 100%"  :src="postRoute.places.filter(p=>p.objectId === item.placeId)[0].photo"/>
-        <div style="padding-top:10px;">
-          <div style="font-size: 18px;font-weight: bold;padding-bottom: 5px;">{{postRoute.places.filter(p=>p.objectId === item.placeId)[0].name}}</div>
+      <div v-for="(item,index) in postRoute.tripPlans" style="padding:10px 0 5px 0">
+        <div style="margin-left:10px;border-left: dashed #8c06d9;">
+        <div style="padding: 0 10px 0 30px;">
+        <img style="object-fit: fill; width: 100%;max-height: 180px;border-radius: 15px"
+             :src="postRoute.places.filter(p=>p.objectId === item.placeId)[0].photo"/>
+        </div>
+        <div style="padding-top:10px;padding-left: 30px;">
+          <div style="font-size: 18px;font-weight: bold;padding-bottom: 5px;">
+            {{ postRoute.places.filter(p => p.objectId === item.placeId)[0].name }}
+          </div>
           <div style="color:grey;font-size: 16px;display: inline-flex">
-            {{postRoute.places.filter(p=>p.objectId === item.placeId)[0].country}}
+            {{ postRoute.places.filter(p => p.objectId === item.placeId)[0].country }}
             <div>
               &nbsp;&nbsp;&nbsp;&nbsp;
               <van-rate
@@ -79,16 +91,30 @@
                 void-icon="star"
                 void-color="#eee"
               />
-              {{ postRoute.places.filter(p=>p.objectId === item.placeId)[0].rating>0?postRoute.places.filter(p=>p.objectId === item.placeId)[0].rating:0 }}
+              {{
+                parseFloat(postRoute.places.filter(p => p.objectId === item.placeId)[0].rating ).toFixed(1)> 0 ? parseFloat(postRoute.places.filter(p => p.objectId === item.placeId)[0].rating ).toFixed(1) : 0
+              }}
             </div>
           </div>
         </div>
-        <div style="padding-top:30px;display: inline-flex" v-if="rArray&&rArray.length>0">
-          <div style="font-size: 18px;font-weight: bold;">{{rArray[index]?rArray[index].distanceText:''}}</div>
-          <div><van-icon name="guide-o" color="#FFF"/>{{rArray[index]?rArray[index].durationText:''}}</div>
+        </div>
+        <div style="padding-top:20px;display: inline-flex" v-if="rArray&&rArray.length>0">
+          <div v-if="rArray[index]" style="font-size: 18px;font-weight: bold; display: inline-flex">
+            <div v-if="item.mode==='walking'"><img src="@/static/img/walking.png" width="28"/>&nbsp;&nbsp;</div>
+            <div v-if="item.mode==='rail'"><img src="@/static/img/rail.png" width="28"/>&nbsp;&nbsp;</div>
+            <div v-if="item.mode==='driving'"><img src="@/static/img/driving.png" width="28"/>&nbsp;&nbsp;</div>
+            <div v-if="item.mode==='bus'"><img src="@/static/img/bus.png" width="28"/>&nbsp;&nbsp;</div>
+            <div v-if="item.mode==='bicycling'"><img src="@/static/img/bicycling.png" width="28"/>&nbsp;&nbsp;</div>
+            <div style="margin:auto">
+            <span v-if="rArray[index]">{{ rArray[index] ? rArray[index].distanceText : '' }} </span>&nbsp;&nbsp;
+            <van-icon v-if="rArray[index]" name="guide-o" color="#000000"/>
+            {{ rArray[index] ? rArray[index].durationText : '' }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
+    <div style="height: 50px;"/>
   </div>
 </template>
 
@@ -96,7 +122,33 @@
 import * as VueGoogleMaps from "vue2-google-maps";
 
 export default {
+  async asyncData({query, store}) {
+    const {postId} = query;
+    // Validate query params
+
+    // fetch data from API
+    try {
+      const carDetail = await store.dispatch('getPostRoute', {
+        postId
+      });
+      return {
+        carDetail,
+      };
+    } catch (error) {
+      // Redirect to error page or 404 depending on server response
+    }
+  },
   name: "map",
+  head() {
+    return {
+      title: this.carDetail[0]?.title +' on Nowy',
+      meta: [{
+        hid: 'og-image',
+        name: 'og:image',
+        content: this.carDetail[0]?.thumbnailUrl?this.carDetail[0]?.thumbnailUrl:''
+      }]
+    }
+  },
   data() {
     return {
       // center: {lat: 55.915655, lng: -4.744502},
@@ -165,8 +217,17 @@ export default {
     })
   },
   methods: {
-    openApp(){
-      window.location = `nowy://${this.postDetail.postType==='note'?'post':'trip'}/${this.$route.query.postId}`;
+    openApp() {
+      window.location = `nowy://${this.postDetail.postType === 'note' ? 'post' : 'trip'}/${this.$route.query.postId}`;
+    },
+    toHoursAndMinutes(totalSeconds) {
+      const totalMinutes = Math.floor(totalSeconds / 60);
+
+      const seconds = totalSeconds % 60;
+      const hours = Math.floor(totalMinutes / 60);
+      const minutes = totalMinutes % 60;
+
+      return hours + 'h '  + minutes + "mins";
     }
   },
   watch: {
