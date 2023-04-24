@@ -132,7 +132,7 @@ export default {
         postId
       });
       return {
-        carDetail,
+        carDetail
       };
     } catch (error) {
       // Redirect to error page or 404 depending on server response
@@ -141,11 +141,11 @@ export default {
   name: "map",
   head() {
     return {
-      title: this.carDetail[0]?.title +' on Nowy',
+      title: this.carDetail?.title +' on Nowy',
       meta: [{
         hid: 'og-image',
         name: 'og:image',
-        content: this.carDetail[0]?.thumbnailUrl?this.carDetail[0]?.thumbnailUrl:''
+        content: this.carDetail?.thumbnailUrl?this.carDetail?.thumbnailUrl:''
       }]
     }
   },

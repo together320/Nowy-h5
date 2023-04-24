@@ -151,7 +151,7 @@ export const actions = {
     return this.$axios.get(`/posts/getPostRoute`,{params: { postId } }).then(res => {
       if (res.status === 200 && res.data.length>0) {
         commit('setPostRoute', res.data[0])
-        return res.data
+        return res.data[0]
       } else {
         commit('setPostRoute', {})
         handleErrorRes(res)
