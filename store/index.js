@@ -13,9 +13,9 @@ export const state = () => ({
   postDetail: {},
   postRoute: {},
   placeDetail: {},
-  loaded:false,
-  pArray:[],
-  rArray:[]
+  loaded: false,
+  pArray: [],
+  rArray: []
 })
 
 export const getters = {
@@ -40,16 +40,16 @@ export const getters = {
   getActivities(state) {
     return state.activities
   },
-  getPickedTabs(state){
+  getPickedTabs(state) {
     return state.picked_tabs
   },
-  getSelectedActivity(state){
+  getSelectedActivity(state) {
     return state.selectedActivity
   },
-  getRankData(state){
+  getRankData(state) {
     return state.rankData
   },
-  getIdxRankData(state){
+  getIdxRankData(state) {
     return state.idxRankData
   }
 }
@@ -59,19 +59,42 @@ export const mutations = {
     state.postDetail = payload
     state.loaded = true
   },
-  setRArray(state,payload){
+  setRArray(state, payload) {
     state.rArray = payload
   },
   setPostRoute(state, payload) {
     state.postRoute = payload
     let ps = payload.places
+    let dps = payload.detailPlans
+    let rs = payload.tripPlans
+    let rs_copy = [...rs]
     let pArray = []
+    let day = 1
+    let tempDay = 0
     for (const p of ps) {
-      let o = {position: {lat: p.coordinate.latitude, lng:p.coordinate.longitude,icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
-          label: { color: '#d21171', fontWeight: 'bold', fontSize: '14px', text: '2-1' }}}
+      let dayText = ''
+      let rDay = dps[p.objectId]
+      for (let i = 0; i < rs_copy.length; i++) {
+        const oneR = rs_copy[i];
+        if (oneR.placeId === p.objectId) {
+          if (day === rDay) {
+            tempDay = tempDay + 1
+          } else {
+            day = rDay
+            tempDay = 1
+          }
+          dayText = `${day}-${tempDay}`
+        }
+      }
+      let o = {
+        position: {
+          lat: p.coordinate.latitude, lng: p.coordinate.longitude
+        },
+        icon: {url:`https://api.nowy.io/assets/${day}.png`,labelOrigin: { x: 20, y: 10}},
+        label: {fontWeight: 'bold', fontSize: '14px',color:'#FFF', text: dayText}
+      }
       pArray.push(o)
     }
-    let rs = payload.tripPlans
     let rArray = []
     for (const r of rs) {
       let text = r.route.toString();
@@ -80,7 +103,6 @@ export const mutations = {
         rArray.push(br)
       }
     }
-    console.log(rArray)
     state.rArray = rArray
     state.pArray = pArray
     state.loaded = true
@@ -133,10 +155,10 @@ export const mutations = {
 }
 
 export const actions = {
-  async getPostDetail({commit},{postId}) {
-    commit('setLoaded',false)
-    return this.$axios.get(`/posts/getPostDetails`,{params: { postId } }).then(res => {
-      if (res.data.code === 0 && res.data.data.length>0) {
+  async getPostDetail({commit}, {postId}) {
+    commit('setLoaded', false)
+    return this.$axios.get(`/posts/getPostDetails`, {params: {postId}}).then(res => {
+      if (res.data.code === 0 && res.data.data.length > 0) {
         commit('setPostDetail', res.data.data[0])
         return res.data
       } else {
@@ -146,10 +168,10 @@ export const actions = {
       }
     })
   },
-  async getPostRoute({commit},{postId}) {
-    commit('setLoaded',false)
-    return this.$axios.get(`/posts/getPostRoute`,{params: { postId } }).then(res => {
-      if (res.status === 200 && res.data.length>0) {
+  async getPostRoute({commit}, {postId}) {
+    commit('setLoaded', false)
+    return this.$axios.get(`/posts/getPostRoute`, {params: {postId}}).then(res => {
+      if (res.status === 200 && res.data.length > 0) {
         commit('setPostRoute', res.data[0])
         return res.data[0]
       } else {
@@ -159,10 +181,10 @@ export const actions = {
       }
     })
   },
-  async getPlaceDetail({commit},{placeId}) {
-    commit('setLoaded',false)
-    return this.$axios.get(`/posts/getPlaceDetails`,{params: { placeId } }).then(res => {
-      if (res.status === 200 && res.data.length>0) {
+  async getPlaceDetail({commit}, {placeId}) {
+    commit('setLoaded', false)
+    return this.$axios.get(`/posts/getPlaceDetails`, {params: {placeId}}).then(res => {
+      if (res.status === 200 && res.data.length > 0) {
         commit('setPlaceDetail', res.data[0])
         return res.data[0]
       } else {
@@ -173,8 +195,8 @@ export const actions = {
     })
   },
   //排行榜
-  getRank({commit},{timeCode}) {
-    this.$axios.post(`/ind/voteRank`, {timeCode,page:1,limit:200}).then(res => {
+  getRank({commit}, {timeCode}) {
+    this.$axios.post(`/ind/voteRank`, {timeCode, page: 1, limit: 200}).then(res => {
       if (res.data.code === 0) {
         commit('setRankData', res.data)
       } else {
@@ -185,8 +207,8 @@ export const actions = {
   },
   //获取指数列表
   getIndexes({commit, state}, {timeCode, type, fresh = false}) {
-    commit('setSelectedActivity',type)
-    if (state.index_tabs[type].length === 0||fresh===true) {
+    commit('setSelectedActivity', type)
+    if (state.index_tabs[type].length === 0 || fresh === true) {
       return this.$axios.get(`/ind/list/${timeCode}`).then(res => {
         if (res.data.code === 0) {
           commit('setIndexesData', {data: res.data.data, type})
@@ -214,7 +236,7 @@ export const actions = {
   },
   //获取我的指数列表
   getMyPicker({commit, state}, {timeCode, type}) {
-    commit('setSelectedActivity',type)
+    commit('setSelectedActivity', type)
     return this.$axios.get(`/ind/myVotes/${timeCode}`).then(res => {
       if (res.data.code === 0) {
         commit('setPickedData', {data: res.data.data, type})

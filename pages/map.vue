@@ -1,5 +1,5 @@
 <template>
-  <div id="app" style="max-width: 414px;">
+  <div id="app"  style="max-width: 414px;margin:auto;">
     <div class="fixed-header">
       <div class="header-container" @click="openApp">
         <img style="width:24px" src="@/static/img/novylogo-2-min.png"/>&nbsp;&nbsp; View in Nowy app
@@ -10,7 +10,7 @@
       <div style="white-space: pre-line;">{{ postRoute.content }}</div>
     </div>
     <div style="padding: 10px 0">
-      <gmap-map v-bind:center="center" v-bind:zoom="12" style="max-width: 414px; height:300px">
+      <gmap-map v-bind:center="center" v-bind:zoom="11" style="max-width: 414px; height:300px">
         <gmap-polyline v-show="show0" v-bind:path.sync="path0" v-bind:options="{ strokeColor:'#000000'}">
         </gmap-polyline>
         <gmap-polyline v-show="show1" v-bind:path.sync="path1" v-bind:options="{ strokeColor:'#000000'}">
@@ -85,7 +85,7 @@
             <div>
               &nbsp;&nbsp;&nbsp;&nbsp;
               <van-rate
-                v-model="parseFloat(postRoute.places.filter(p=>p.objectId === item.placeId)[0].rating).toFixed(1)"
+                :v-model="parseFloat(postRoute.places.filter(p=>p.objectId === item.placeId)[0].rating).toFixed(1)"
                 :size="16"
                 color="#ffd21e"
                 void-icon="star"
