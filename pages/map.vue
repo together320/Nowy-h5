@@ -83,9 +83,8 @@
           <div style="color:grey;font-size: 16px;display: inline-flex">
             {{ postRoute.places.filter(p => p.objectId === item.placeId)[0].country }}
             <div>
-              &nbsp;&nbsp;&nbsp;&nbsp;
               <van-rate
-                :v-model="parseFloat(postRoute.places.filter(p=>p.objectId === item.placeId)[0].rating).toFixed(1)"
+                v-model="parseFloat(postRoute.places.filter(p=>p.objectId === item.placeId)[0].rating).toFixed(1)"
                 :size="16"
                 color="#ffd21e"
                 void-icon="star"
