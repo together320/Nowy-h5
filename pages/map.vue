@@ -72,7 +72,8 @@
     <div>
       <div v-for="(item,index) in postRoute.tripPlans" style="padding:10px 0 5px 0">
         <div style="margin-left:10px;border-left: dashed #8c06d9;">
-        <div style="padding: 0 10px 0 30px;">
+          <div v-if="rMap.hasOwnProperty(index)" style="margin-left:-12px;margin-top:-2px;"><van-tag round size="medium" type="primary">D{{rMap[index]}}</van-tag></div>
+          <div style="padding: 0 10px 0 30px;">
         <img style="object-fit: fill; width: 100%;max-height: 180px;border-radius: 15px"
              :src="postRoute.places.filter(p=>p.objectId === item.placeId)[0].photo"/>
         </div>
@@ -83,6 +84,7 @@
           <div style="color:grey;font-size: 16px;display: inline-flex">
             {{ postRoute.places.filter(p => p.objectId === item.placeId)[0].country }}
             <div>
+              &nbsp;&nbsp;
               <van-rate
                 v-model="parseFloat(postRoute.places.filter(p=>p.objectId === item.placeId)[0].rating).toFixed(1)"
                 :size="16"
@@ -258,6 +260,9 @@ export default {
     },
     rArray() {
       return this.$store.getters["getRArray"]
+    },
+    rMap(){
+      return this.$store.getters["getRMap"]
     }
   },
   mounted() {

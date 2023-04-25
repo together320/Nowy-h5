@@ -15,7 +15,8 @@ export const state = () => ({
   placeDetail: {},
   loaded: false,
   pArray: [],
-  rArray: []
+  rArray: [],
+  rMap:{}
 })
 
 export const getters = {
@@ -27,6 +28,9 @@ export const getters = {
   },
   getRArray(state) {
     return state.rArray
+  },
+  getRMap(state) {
+    return state.rMap
   },
   getPostRoute(state) {
     return state.postRoute
@@ -96,13 +100,26 @@ export const mutations = {
       pArray.push(o)
     }
     let rArray = []
+    let rMap = {}
+    let drawDay = 0
+    let idx=-1
     for (const r of rs) {
+      idx=idx+1
       let text = r.route.toString();
       if (text) {
-        let br = JSON.parse(text);
+        let br = JSON.parse(text)
+        let rDay = dps[r.placeId]
+        if(drawDay!==rDay){
+          drawDay = rDay
+          if (!rMap.hasOwnProperty(idx)) {
+            rMap[idx] = drawDay;
+          }
+        }
         rArray.push(br)
       }
     }
+    console.log(rMap)
+    state.rMap = rMap
     state.rArray = rArray
     state.pArray = pArray
     state.loaded = true
