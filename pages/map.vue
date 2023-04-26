@@ -10,7 +10,7 @@
       <div style="white-space: pre-line;">{{ postRoute.content }}</div>
     </div>
     <div style="padding: 10px 0">
-      <gmap-map v-bind:center="pArray&&pArray.length>0?pArray[parseInt(pArray.length/2)].position:center" v-bind:zoom="9" style="max-width: 414px; height:300px">
+      <gmap-map v-bind:center="pArray&&pArray.length>0?pArray[parseInt(pArray.length/2)].position:center" v-bind:zoom="11" style="max-width: 414px; height:300px">
         <gmap-polyline v-show="show0" v-bind:path.sync="path0" v-bind:options="{ strokeColor:'#000000'}">
         </gmap-polyline>
         <gmap-polyline v-show="show1" v-bind:path.sync="path1" v-bind:options="{ strokeColor:'#000000'}">
@@ -129,11 +129,14 @@ export default {
 
     // fetch data from API
     try {
-      const carDetail = await store.dispatch('getPostRoute', {
+      const data = await store.dispatch('getPostRoute', {
         postId
       });
+      let carDetail = data.data[0]
+      const pImg = data.headImg
       return {
-        carDetail
+        carDetail,
+        pImg
       };
     } catch (error) {
       // Redirect to error page or 404 depending on server response
@@ -146,7 +149,7 @@ export default {
       meta: [{
         hid: 'og-image',
         name: 'og:image',
-        content: this.carDetail?.thumbnailUrl?this.carDetail?.thumbnailUrl:''
+        content: 'https://api.nowy.io/assets/'+this.pImg
       }]
     }
   },
