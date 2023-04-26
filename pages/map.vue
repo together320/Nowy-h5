@@ -236,7 +236,7 @@ export default {
       let results = []
       if (og === null && ng) {
         this.rArray.map(r => {
-          results.push(google.maps.geometry.encoding.decodePath(r.overview_polyline))
+          // results.push(google.maps.geometry.encoding.decodePath(r.overview_polyline))
         })
         this.realRoutes = results
       }
@@ -244,8 +244,17 @@ export default {
     rArray: {
       handler: function (val, oldVal) {
         this.rArray.map((r, idx) => {
-          this['path' + idx] = google.maps.geometry.encoding.decodePath(r.overview_polyline)
-          this['show' + idx] = true;
+          let dPath = ''
+          try{
+            dPath = google.maps.geometry.encoding.decodePath(r.overview_polyline)
+          }catch(error){
+            console.log(error)
+            dPath = ''
+          }
+          if(dPath!==''){
+            this['path' + idx] = dPath
+            this['show' + idx] = true;
+          }
         })
       },
     }
