@@ -103,6 +103,7 @@ export const mutations = {
     let rMap = {}
     let drawDay = 0
     let idx=-1
+    let mColors = ["4C50B0","4CA4B0","66B04C","B0A64C","B0704C","D73F3F","784CB0","AE4CB0","B04C64","000000","4C50B0","4CA4B0","66B04C","B0A64C","B0704C","D73F3F","784CB0","AE4CB0","B04C64","000000","4C50B0","4CA4B0","66B04C","B0A64C","B0704C","D73F3F","784CB0","AE4CB0","B04C64","000000","4C50B0","4CA4B0","66B04C","B0A64C","B0704C","D73F3F","784CB0","AE4CB0","B04C64","000000","4C50B0","4CA4B0","66B04C","B0A64C","B0704C","D73F3F","784CB0","AE4CB0","B04C64","000000","4C50B0","4CA4B0","66B04C","B0A64C","B0704C","D73F3F","784CB0","AE4CB0","B04C64","000000","4C50B0","4CA4B0","66B04C","B0A64C","B0704C","D73F3F","784CB0","AE4CB0","B04C64","000000","4C50B0","4CA4B0","66B04C","B0A64C","B0704C","D73F3F","784CB0","AE4CB0","B04C64","000000"]
     for (const r of rs) {
       idx=idx+1
       let text = r.route.toString();
@@ -112,7 +113,7 @@ export const mutations = {
         if(drawDay!==rDay){
           drawDay = rDay
           if (!rMap.hasOwnProperty(idx)) {
-            rMap[idx] = drawDay;
+            rMap[idx] = {day:drawDay,color:'#'+mColors[drawDay]};
           }
         }
         rArray.push(br)
