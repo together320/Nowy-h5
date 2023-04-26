@@ -113,7 +113,7 @@ export const mutations = {
         if(drawDay!==rDay){
           drawDay = rDay
           if (!rMap.hasOwnProperty(idx)) {
-            rMap[idx] = {day:drawDay,color:'#'+mColors[drawDay]};
+            rMap[idx] = {day:drawDay,color:'#'+mColors[drawDay-1]};
           }
         }
         rArray.push(br)
