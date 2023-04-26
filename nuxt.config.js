@@ -56,10 +56,14 @@ export default {
   },
 
   // You will need to add this:
-   server: {
-     host: '0',
-     port: '8080' // optional
-   },
+  //  server: {
+  //    host: '0',
+  //    port: '8080' // optional
+  //  },
+  server: {
+    host: '192.168.1.104',
+    port: '8080' // optional
+  },
 
   features:{
     transitions: false

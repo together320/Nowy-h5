@@ -120,6 +120,8 @@ export const mutations = {
       }
     }
     console.log(rMap)
+    console.log('=====',rArray)
+    console.log('+++++',pArray)
     state.rMap = rMap
     state.rArray = rArray
     state.pArray = pArray
