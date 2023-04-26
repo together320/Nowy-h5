@@ -100,7 +100,7 @@
         </div>
         </div>
         <div style="padding-top:20px;display: inline-flex" v-if="rArray&&rArray.length>0">
-          <div v-if="rArray[index]" style="font-size: 18px;font-weight: bold; display: inline-flex">
+          <div style="font-size: 18px;font-weight: bold; display: inline-flex">
             <div v-if="item.mode==='walking'"><img src="@/static/img/walking.png" width="28"/>&nbsp;&nbsp;</div>
             <div v-if="item.mode==='rail'"><img src="@/static/img/rail.png" width="28"/>&nbsp;&nbsp;</div>
             <div v-if="item.mode==='driving'"><img src="@/static/img/driving.png" width="28"/>&nbsp;&nbsp;</div>
