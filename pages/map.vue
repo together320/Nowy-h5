@@ -6,8 +6,8 @@
       </div>
     </div>
     <div style="padding:10px;">
-      <div style="display: flex">
-        <head-avatar head-class="avatar-head" :thumbAvatar="postRoute.poster.hasOwnProperty('avatar')?postRoute.poster.avatar.url:''"></head-avatar>
+      <div style="display: flex" v-if="postRoute&&postRoute.poster">
+        <head-avatar head-class="avatar-head" :thumbAvatar="postRoute.poster.avatar?postRoute.poster.avatar.url:''"></head-avatar>
         <div style="line-height: 40px; padding-left:10px;">
           {{ postRoute.poster.displayName }}
         </div>
@@ -80,7 +80,7 @@
     <div>
       <div v-for="(item,index) in postRoute.tripPlans" style="padding:10px 0 5px 0">
         <div style="margin-left:15px;border-left: dashed #000000;">
-          <div v-if="rMap.hasOwnProperty(index)" style="margin-left:-12px;margin-top:-5px;"><van-tag round size="medium" :color="rMap[index].color" type="primary">D{{rMap[index].day}}</van-tag></div>
+          <div v-if="rMap.hasOwnProperty(index)" style="margin-left:-15px;margin-top:-2px;"><van-tag round size="medium" :color="rMap[index].color" type="primary">D{{rMap[index].day}}</van-tag></div>
           <div style="padding: 0 10px 0 20px;">
         <img style="object-fit: cover; width: 100%;max-height: 180px;border-radius: 15px"
              :src="postRoute.places.filter(p=>p.objectId === item.placeId)[0].photo"/>
