@@ -278,8 +278,21 @@ export default {
           ((lat_max + lat_min) / 2.0),
           ((lng_max + lng_min) / 2.0)
         )
-        this.center = {lat:center.lat(),lng:center.lng()}
-        console.log(this.$refs['map'].$mapObject)
+        this.$refs['map'].$mapObject.setCenter(new google.maps.LatLng(
+          ((lat_max + lat_min) / 2.0),
+          ((lng_max + lng_min) / 2.0)
+        ));
+        const bounds = new google.maps.LatLngBounds();
+        this.pArray.forEach((marker) => {
+          bounds.extend(new google.maps.LatLng(marker.position.lat, marker.position.lng))
+        })
+        this.$refs['map'].$mapObject.fitBounds(bounds)
+        // this.$refs['map'].$mapObject.fitBounds(new google.maps.LatLngBounds(
+        //   //bottom left
+        //   new google.maps.LatLng(lat_min, lng_min),
+        //   //top right
+        //   new google.maps.LatLng(lat_max, lng_max)
+        // ));
       },
     }
   },
