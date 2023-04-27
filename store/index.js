@@ -134,8 +134,8 @@ export const mutations = {
         r.color = '#' + mColors[drawDay - 1]
 
       } else {
-        rMap[idx] = {day: idx + 1, color: '#000000'};
-        r.color = '#000000'
+        rMap[idx] = {day: idx + 1, color: '#'+mColors[idx]};
+        r.color = '#'+mColors[idx]
       }
     }
 
