@@ -125,13 +125,13 @@ export const mutations = {
             if (drawDay !== rDay) {
               drawDay = rDay
               if (!rMap.hasOwnProperty(idx)) {
-                rMap[idx] = {day: drawDay, color: '#' + mColors[drawDay - 1]};
+                rMap[idx] = {day: 'D'+drawDay, color: '#' + mColors[drawDay - 1]};
               }
             }
             r.color = '#'+mColors[drawDay-1]
 
           }else{
-            // rMap[idx] = {day: idx+1, color: '#' + mColors[idx]};
+            rMap[idx] = {day: idx+1, color: '#' + mColors[idx]};
             r.color = '#000000'
           }
           rArray.push(br)
