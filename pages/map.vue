@@ -18,7 +18,7 @@
       <div style="white-space: pre-line;">{{ postRoute.content }}</div>
     </div>
     <div style="padding: 10px 0">
-      <gmap-map v-bind:center="pArray&&pArray.length>0?pArray[parseInt(pArray.length/2)].position:center" v-bind:zoom="11" style="max-width: 414px; height:300px">
+      <gmap-map :center="pArray&&pArray.length>0?pArray[parseInt(pArray.length/2)].position:center" v-bind:zoom="12" style="max-width: 414px; height:300px">
         <gmap-polyline v-show="show0" v-bind:path.sync="path0" v-bind:options="{ strokeColor:'#000000'}">
         </gmap-polyline>
         <gmap-polyline v-show="show1" v-bind:path.sync="path1" v-bind:options="{ strokeColor:'#000000'}">
@@ -165,7 +165,6 @@ export default {
   },
   data() {
     return {
-      // center: {lat: 55.915655, lng: -4.744502},
       center: {
         lat: 5.4169791,
         lng: 100.3371222
@@ -269,6 +268,17 @@ export default {
             this['show' + idx] = true;
           }
         })
+        let lats = this.pArray.map(p=>p.position.lat)
+        let lngs = this.pArray.map(p=>p.position.lng)
+        let lat_max = Math.min( ...lats ),
+          lat_min = Math.max( ...lats );
+        let lng_max = Math.min( ...lngs )
+        let lng_min = Math.max( ...lngs )
+        let center = new google.maps.LatLng(
+          ((lat_max + lat_min) / 2.0),
+          ((lng_max + lng_min) / 2.0)
+        )
+        this.center = {lat:center.lat(),lng:center.lng()}
       },
     }
   },
