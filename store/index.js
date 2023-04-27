@@ -131,6 +131,7 @@ export const mutations = {
           }else{
             rMap[idx] = {day: idx+1, color: '#' + mColors[idx]};
           }
+          r.color = '#'+mColors[drawDay-1]
           rArray.push(br)
         }
       }
@@ -140,6 +141,7 @@ export const mutations = {
     console.log('=====',rArray)
     console.log('+++++',pArray)
     console.log('****',rBMap)
+    console.log('&&&&',payload.tripPlans)
     state.rBMap = rBMap
     state.rMap = rMap
     state.rArray = rArray

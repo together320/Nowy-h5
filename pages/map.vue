@@ -79,7 +79,7 @@
     </div>
     <div>
       <div v-for="(item,index) in postRoute.tripPlans" style="padding:10px 0 5px 0">
-        <div :style="item.route===''?'':'margin-left:15px;border-left: dashed #000000'">
+        <div :style="item.route===''?'':'margin-left:15px;border-left: dashed '+item.color">
           <div v-if="rMap.hasOwnProperty(index)" style="margin-left:-15px;margin-top:-2px;"><van-tag round size="medium" :color="rMap[index].color" type="primary">D{{rMap[index].day}}</van-tag></div>
           <div style="padding: 0 10px 0 20px;">
         <img style="object-fit: cover; width: 100%;max-height: 140px;border-radius: 15px"
@@ -298,5 +298,8 @@ export default {
   width: 40px;
   height: 40px;
   border-radius: 45px;
+}
+.left-handbar{
+  margin-left:15px;
 }
 </style>
