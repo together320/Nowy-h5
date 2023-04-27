@@ -16,8 +16,8 @@ export const state = () => ({
   loaded: false,
   pArray: [],
   rArray: [],
-  rMap:{},
-  rBMap:{},
+  rMap: {},
+  rBMap: {},
 })
 
 export const getters = {
@@ -78,9 +78,9 @@ export const mutations = {
     let tempDay = 0
     let tempIdx = 0
     for (const p of ps) {
-      tempIdx = tempIdx+1
+      tempIdx = tempIdx + 1
       let dayText = ''
-      if(dps){
+      if (dps) {
         let rDay = dps[p.objectId]
         for (let i = 0; i < rs_copy.length; i++) {
           const oneR = rs_copy[i];
@@ -94,56 +94,57 @@ export const mutations = {
             dayText = `${day}-${tempDay}`
           }
         }
-      }else{
+      } else {
         dayText = tempIdx
       }
       let o = {
         position: {
           lat: p.coordinate.latitude, lng: p.coordinate.longitude
         },
-        icon: {url:`https://api.nowy.io/assets/${day}.png`,labelOrigin: { x: 20, y: 10}},
-        label: {fontWeight: 'bold', fontSize: '14px',color:'#FFF', text: dayText+''}
+        icon: {url: `https://api.nowy.io/assets/${day}.png`, labelOrigin: {x: 20, y: 10}},
+        label: {fontWeight: 'bold', fontSize: '14px', color: '#FFF', text: dayText + ''}
       }
       pArray.push(o)
-      if(!dps){
-        day = day+1
+      if (!dps) {
+        day = day + 1
       }
     }
     let rArray = []
     let rMap = {}
     let rBMap = {}
     let drawDay = 0
-    let idx=-1
-    let mColors = ["4C50B0","4CA4B0","66B04C","B0A64C","B0704C","D73F3F","784CB0","AE4CB0","B04C64","000000","4C50B0","4CA4B0","66B04C","B0A64C","B0704C","D73F3F","784CB0","AE4CB0","B04C64","000000","4C50B0","4CA4B0","66B04C","B0A64C","B0704C","D73F3F","784CB0","AE4CB0","B04C64","000000","4C50B0","4CA4B0","66B04C","B0A64C","B0704C","D73F3F","784CB0","AE4CB0","B04C64","000000","4C50B0","4CA4B0","66B04C","B0A64C","B0704C","D73F3F","784CB0","AE4CB0","B04C64","000000","4C50B0","4CA4B0","66B04C","B0A64C","B0704C","D73F3F","784CB0","AE4CB0","B04C64","000000","4C50B0","4CA4B0","66B04C","B0A64C","B0704C","D73F3F","784CB0","AE4CB0","B04C64","000000","4C50B0","4CA4B0","66B04C","B0A64C","B0704C","D73F3F","784CB0","AE4CB0","B04C64","000000"]
-      for (const r of rs) {
-        idx=idx+1
-        let text = r.route.toString();
-        if (text) {
-          let br = JSON.parse(text)
-          if(dps) {
-            let rDay = dps[r.placeId]
-            if (drawDay !== rDay) {
-              drawDay = rDay
-              if (!rMap.hasOwnProperty(idx)) {
-                rMap[idx] = {day: 'D'+drawDay, color: '#' + mColors[drawDay - 1]};
-              }
-            }
-            r.color = '#'+mColors[drawDay-1]
-
-          }else{
-            rMap[idx] = {day: idx+1, color: '#' + mColors[idx]};
-            r.color = '#000000'
-          }
-          rArray.push(br)
-        }
+    let idx = -1
+    let mColors = ["4C50B0", "4CA4B0", "66B04C", "B0A64C", "B0704C", "D73F3F", "784CB0", "AE4CB0", "B04C64", "000000", "4C50B0", "4CA4B0", "66B04C", "B0A64C", "B0704C", "D73F3F", "784CB0", "AE4CB0", "B04C64", "000000", "4C50B0", "4CA4B0", "66B04C", "B0A64C", "B0704C", "D73F3F", "784CB0", "AE4CB0", "B04C64", "000000", "4C50B0", "4CA4B0", "66B04C", "B0A64C", "B0704C", "D73F3F", "784CB0", "AE4CB0", "B04C64", "000000", "4C50B0", "4CA4B0", "66B04C", "B0A64C", "B0704C", "D73F3F", "784CB0", "AE4CB0", "B04C64", "000000", "4C50B0", "4CA4B0", "66B04C", "B0A64C", "B0704C", "D73F3F", "784CB0", "AE4CB0", "B04C64", "000000", "4C50B0", "4CA4B0", "66B04C", "B0A64C", "B0704C", "D73F3F", "784CB0", "AE4CB0", "B04C64", "000000", "4C50B0", "4CA4B0", "66B04C", "B0A64C", "B0704C", "D73F3F", "784CB0", "AE4CB0", "B04C64", "000000"]
+    for (const r of rs) {
+      idx = idx + 1
+      let text = r.route.toString();
+      if (text) {
+        let br = JSON.parse(text)
+        rArray.push(br)
       }
 
+      if (dps) {
+        let rDay = dps[r.placeId]
+        if (drawDay !== rDay) {
+          drawDay = rDay
+          if (!rMap.hasOwnProperty(idx)) {
+            rMap[idx] = {day: 'D' + drawDay, color: '#' + mColors[drawDay - 1]};
+          }
+        }
+        r.color = '#' + mColors[drawDay - 1]
 
-    console.log(rMap)
-    console.log('=====',rArray)
-    console.log('+++++',pArray)
-    console.log('****',rBMap)
-    console.log('&&&&',payload.tripPlans)
+      } else {
+        rMap[idx] = {day: idx + 1, color: '#000000'};
+        r.color = '#000000'
+      }
+    }
+
+
+    console.log(rMap, 'rmap')
+    console.log('=====', rArray)
+    console.log('+++++', pArray)
+    console.log('****', rBMap)
+    console.log('&&&&', payload.tripPlans)
     state.rBMap = rBMap
     state.rMap = rMap
     state.rArray = rArray
