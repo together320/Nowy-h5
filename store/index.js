@@ -16,7 +16,8 @@ export const state = () => ({
   loaded: false,
   pArray: [],
   rArray: [],
-  rMap:{}
+  rMap:{},
+  rBMap:{},
 })
 
 export const getters = {
@@ -75,53 +76,71 @@ export const mutations = {
     let pArray = []
     let day = 1
     let tempDay = 0
+    let tempIdx = 0
     for (const p of ps) {
+      tempIdx = tempIdx+1
       let dayText = ''
-      let rDay = dps[p.objectId]
-      for (let i = 0; i < rs_copy.length; i++) {
-        const oneR = rs_copy[i];
-        if (oneR.placeId === p.objectId) {
-          if (day === rDay) {
-            tempDay = tempDay + 1
-          } else {
-            day = rDay
-            tempDay = 1
+      if(dps){
+        let rDay = dps[p.objectId]
+        for (let i = 0; i < rs_copy.length; i++) {
+          const oneR = rs_copy[i];
+          if (oneR.placeId === p.objectId) {
+            if (day === rDay) {
+              tempDay = tempDay + 1
+            } else {
+              day = rDay
+              tempDay = 1
+            }
+            dayText = `${day}-${tempDay}`
           }
-          dayText = `${day}-${tempDay}`
         }
+      }else{
+        dayText = tempIdx
       }
       let o = {
         position: {
           lat: p.coordinate.latitude, lng: p.coordinate.longitude
         },
         icon: {url:`https://api.nowy.io/assets/${day}.png`,labelOrigin: { x: 20, y: 10}},
-        label: {fontWeight: 'bold', fontSize: '14px',color:'#FFF', text: dayText}
+        label: {fontWeight: 'bold', fontSize: '14px',color:'#FFF', text: dayText+''}
       }
       pArray.push(o)
+      if(!dps){
+        day = day+1
+      }
     }
     let rArray = []
     let rMap = {}
+    let rBMap = {}
     let drawDay = 0
     let idx=-1
     let mColors = ["4C50B0","4CA4B0","66B04C","B0A64C","B0704C","D73F3F","784CB0","AE4CB0","B04C64","000000","4C50B0","4CA4B0","66B04C","B0A64C","B0704C","D73F3F","784CB0","AE4CB0","B04C64","000000","4C50B0","4CA4B0","66B04C","B0A64C","B0704C","D73F3F","784CB0","AE4CB0","B04C64","000000","4C50B0","4CA4B0","66B04C","B0A64C","B0704C","D73F3F","784CB0","AE4CB0","B04C64","000000","4C50B0","4CA4B0","66B04C","B0A64C","B0704C","D73F3F","784CB0","AE4CB0","B04C64","000000","4C50B0","4CA4B0","66B04C","B0A64C","B0704C","D73F3F","784CB0","AE4CB0","B04C64","000000","4C50B0","4CA4B0","66B04C","B0A64C","B0704C","D73F3F","784CB0","AE4CB0","B04C64","000000","4C50B0","4CA4B0","66B04C","B0A64C","B0704C","D73F3F","784CB0","AE4CB0","B04C64","000000"]
-    for (const r of rs) {
-      idx=idx+1
-      let text = r.route.toString();
-      if (text) {
-        let br = JSON.parse(text)
-        let rDay = dps[r.placeId]
-        if(drawDay!==rDay){
-          drawDay = rDay
-          if (!rMap.hasOwnProperty(idx)) {
-            rMap[idx] = {day:drawDay,color:'#'+mColors[drawDay-1]};
+      for (const r of rs) {
+        idx=idx+1
+        let text = r.route.toString();
+        if (text) {
+          let br = JSON.parse(text)
+          if(dps) {
+            let rDay = dps[r.placeId]
+            if (drawDay !== rDay) {
+              drawDay = rDay
+              if (!rMap.hasOwnProperty(idx)) {
+                rMap[idx] = {day: drawDay, color: '#' + mColors[drawDay - 1]};
+              }
+            }
+          }else{
+            rMap[idx] = {day: idx+1, color: '#' + mColors[idx]};
           }
+          rArray.push(br)
         }
-        rArray.push(br)
       }
-    }
+
+
     console.log(rMap)
     console.log('=====',rArray)
     console.log('+++++',pArray)
+    console.log('****',rBMap)
+    state.rBMap = rBMap
     state.rMap = rMap
     state.rArray = rArray
     state.pArray = pArray
