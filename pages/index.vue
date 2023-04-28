@@ -1,7 +1,7 @@
 <template>
   <div v-if="loaded" style="max-width: 414px;margin:auto;">
-    <div class="fixed-header">
-      <div class="header-container" @click="openApp">
+    <div class="fixed-header" @click="openApp">
+      <div class="header-container">
         <img style="width:24px" src="@/static/img/novylogo-2-min.png"/>&nbsp;&nbsp; View in Nowy app
       </div>
     </div>
