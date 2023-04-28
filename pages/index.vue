@@ -84,7 +84,7 @@ export default {
     if (this.$route.query.hasOwnProperty('postId')) {
       postId = this.$route.query.postId
       this.$store.dispatch('getPostDetail', {postId}).then(res=>{
-        window.location = `nowy://${this.postDetail.postType==='note'?'post':'trip'}/${this.$route.query.postId}`;
+        window.location = `nowy://${this.postDetail.postType==='plan'?'trip':'post'}/${this.$route.query.postId}`;
         setTimeout (function(){
           window.location = 'itms-apps://itunes.apple.com/us/app/nowy-best-travel-community/id1621810481'
         }, 300);
@@ -118,7 +118,7 @@ export default {
   },
   methods: {
     openApp(){
-      window.location = `nowy://${this.postDetail.postType==='note'?'post':'trip'}/${this.$route.query.postId}`;
+      window.location = `nowy://${this.postDetail.postType==='plan'?'trip':'post'}/${this.$route.query.postId}`;
       setTimeout (function(){
         window.location = 'itms-apps://itunes.apple.com/us/app/nowy-best-travel-community/id1621810481'
       }, 300);
