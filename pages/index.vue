@@ -40,6 +40,7 @@
 
 <script>
 import HeadAvatar from "@/pages/com/HeadAvatar";
+import {Notify, Dialog} from "vant";
 
 export default {
   async asyncData({ query, store }) {
@@ -85,10 +86,8 @@ export default {
       this.$store.dispatch('getPostDetail', {postId}).then(res=>{
         window.location = `nowy://${this.postDetail.postType==='note'?'post':'trip'}/${this.$route.query.postId}`;
         setTimeout (function(){
-          if(confirm('You do not seem to have Nowy installed, do you want to go download it now?')){
-            window.location.href = 'https://apps.apple.com/us/app/nowy-best-travel-community/id1621810481';
-          }
-        }, 1000);
+          window.location = 'itms-apps://itunes.apple.com/us/app/nowy-best-travel-community/id1621810481'
+        }, 300);
       })
     } else {
       this.$notify({type: 'danger', message: "Can not find Post info. Please try again."});
@@ -121,10 +120,8 @@ export default {
     openApp(){
       window.location = `nowy://${this.postDetail.postType==='note'?'post':'trip'}/${this.$route.query.postId}`;
       setTimeout (function(){
-        if(confirm('You do not seem to have Nowy installed, do you want to go download it now?')){
-          window.location.href = 'https://apps.apple.com/us/app/nowy-best-travel-community/id1621810481';
-        }
-      }, 1000);
+        window.location = 'itms-apps://itunes.apple.com/us/app/nowy-best-travel-community/id1621810481'
+      }, 300);
     }
   },
 }
