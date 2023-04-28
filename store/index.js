@@ -33,6 +33,9 @@ export const getters = {
   getRMap(state) {
     return state.rMap
   },
+  getRBMap(state) {
+    return state.rBMap
+  },
   getPostRoute(state) {
     return state.postRoute
   },
@@ -111,10 +114,11 @@ export const mutations = {
     }
     let rArray = []
     let rMap = {}
-    let rBMap = {}
+    let rBMap = []
     let drawDay = 0
     let idx = -1
     let mColors = ["4C50B0", "4CA4B0", "66B04C", "B0A64C", "B0704C", "D73F3F", "784CB0", "AE4CB0", "B04C64", "000000", "4C50B0", "4CA4B0", "66B04C", "B0A64C", "B0704C", "D73F3F", "784CB0", "AE4CB0", "B04C64", "000000", "4C50B0", "4CA4B0", "66B04C", "B0A64C", "B0704C", "D73F3F", "784CB0", "AE4CB0", "B04C64", "000000", "4C50B0", "4CA4B0", "66B04C", "B0A64C", "B0704C", "D73F3F", "784CB0", "AE4CB0", "B04C64", "000000", "4C50B0", "4CA4B0", "66B04C", "B0A64C", "B0704C", "D73F3F", "784CB0", "AE4CB0", "B04C64", "000000", "4C50B0", "4CA4B0", "66B04C", "B0A64C", "B0704C", "D73F3F", "784CB0", "AE4CB0", "B04C64", "000000", "4C50B0", "4CA4B0", "66B04C", "B0A64C", "B0704C", "D73F3F", "784CB0", "AE4CB0", "B04C64", "000000", "4C50B0", "4CA4B0", "66B04C", "B0A64C", "B0704C", "D73F3F", "784CB0", "AE4CB0", "B04C64", "000000"]
+    let count = 0;
     for (const r of rs) {
       idx = idx + 1
       let text = r.route.toString();
@@ -122,14 +126,18 @@ export const mutations = {
         let br = JSON.parse(text)
         rArray.push(br)
       }
-
       if (dps) {
         let rDay = dps[r.placeId]
         if (drawDay !== rDay) {
           drawDay = rDay
           if (!rMap.hasOwnProperty(idx)) {
+            count = 1
             rMap[idx] = {day: 'D' + drawDay, color: '#' + mColors[drawDay - 1]};
+            rBMap.push({day: count, color: '#' + mColors[drawDay - 1]});
           }
+        }else{
+          count = count+1
+          rBMap.push({day: count, color: '#' + mColors[drawDay - 1]});
         }
         r.color = '#' + mColors[drawDay - 1]
 
@@ -140,10 +148,9 @@ export const mutations = {
     }
 
 
-    console.log(rMap, 'rmap')
+    console.log(JSON.stringify(rBMap), 'rBMap')
     console.log('=====', rArray)
     console.log('+++++', pArray)
-    console.log('****', rBMap)
     console.log('&&&&', payload.tripPlans)
     state.rBMap = rBMap
     state.rMap = rMap
