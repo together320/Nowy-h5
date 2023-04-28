@@ -224,6 +224,11 @@ export default {
         postId = this.$route.query.postId
         this.$store.dispatch('getPostRoute', {postId}).then(res => {
           window.location = `nowy://${this.postRoute.postType === 'note' ? 'post' : 'trip'}/${this.$route.query.postId}`;
+          setTimeout(function(){
+            if(confirm('You do not seem to have Nowy installed, do you want to go download it now?')){
+              document.location = 'https://apps.apple.com/us/app/nowy-best-travel-community/id1621810481';
+            }
+          }, 800);
         })
       } else {
         this.$notify({type: 'danger', message: "Can not find Post info. Please try again."});
@@ -232,7 +237,12 @@ export default {
   },
   methods: {
     openApp() {
-      window.location = `nowy://${this.postDetail.postType === 'note' ? 'post' : 'trip'}/${this.$route.query.postId}`;
+      window.location = `nowy://${this.postRoute.postType === 'note' ? 'post' : 'trip'}/${this.$route.query.postId}`;
+      setTimeout(function(){
+        if(confirm('You do not seem to have Nowy installed, do you want to go download it now?')){
+          document.location = 'https://apps.apple.com/us/app/nowy-best-travel-community/id1621810481';
+        }
+      }, 800);
     },
     toHoursAndMinutes(totalSeconds) {
       const totalMinutes = Math.floor(totalSeconds / 60);
