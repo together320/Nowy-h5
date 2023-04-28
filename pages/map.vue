@@ -226,7 +226,7 @@ export default {
           window.location = `nowy://${this.postRoute.postType==='plan'?'trip':'post'}/${this.$route.query.postId}`;
           setTimeout (function(){
             window.location = 'itms-apps://itunes.apple.com/us/app/nowy-best-travel-community/id1621810481'
-          }, 300);
+          }, 3000);
         })
       } else {
         this.$notify({type: 'danger', message: "Can not find Post info. Please try again."});
@@ -238,7 +238,7 @@ export default {
       window.location = `nowy://${this.postRoute.postType==='plan'?'trip':'post'}/${this.$route.query.postId}`;
       setTimeout (function(){
         window.location = 'itms-apps://itunes.apple.com/us/app/nowy-best-travel-community/id1621810481'
-      }, 300);
+      }, 3000);
     },
     toHoursAndMinutes(totalSeconds) {
       const totalMinutes = Math.floor(totalSeconds / 60);
