@@ -79,9 +79,9 @@
     </div>
     <div>
       <div v-for="(item,index) in postRoute.tripPlans" style="padding:10px 0 5px 0">
-        <div :style="item.route===''?'':'margin-left:15px;border-left: dashed '+item.color">
+        <div :style="'margin-left:15px;border-left: dashed '+item.color">
           <div v-if="rMap.hasOwnProperty(index)" :style="index === Object.keys(rMap).length-1&&index!==0?'margin-left:2px;margin-top:-2px;':'margin-left:-13px;margin-top:-2px;'"><van-tag size="medium" :color="rMap[index].color" type="primary">{{rMap[index].day}}</van-tag></div>
-          <div v-if="item.route!==''" style="padding-top:40px;position:absolute; margin-left:-10px;"><van-tag v-if="rBmap[index]" round size="medium" :color="rBmap[index].color" type="primary">{{rBmap[index].day}}</van-tag></div>
+          <div style="padding-top:40px;position:absolute; margin-left:-10px;"><van-tag v-if="rBmap[index]" round size="medium" :color="rBmap[index].color" type="primary">{{rBmap[index].day}}</van-tag></div>
           <div style="padding: 0 10px 0 20px;">
         <img style="object-fit: cover; width: 100%;max-height: 140px;border-radius: 15px"
              :src="postRoute.places.filter(p=>p.objectId === item.placeId)[0].photo"/>
@@ -108,7 +108,7 @@
           </div>
         </div>
         </div>
-        <div style="padding-top:20px;display: inline-flex" v-if="rArray&&rArray.length>0">
+        <div style="padding-top:20px;display: inline-flex" v-if="rArray&&rArray.length>0&&rArray.length-1!==index">
           <div  v-if="rArray[index]" style="font-size: 18px;font-weight: bold; display: inline-flex">
             <div v-if="item.mode==='walking'"><img src="@/static/img/walking.png" width="28"/>&nbsp;&nbsp;</div>
             <div v-if="item.mode==='rail'"><img src="@/static/img/rail.png" width="28"/>&nbsp;&nbsp;</div>
@@ -156,7 +156,7 @@ export default {
   components: {HeadAvatar},
   head() {
     return {
-      title: this.carDetail?.title +' on Nowy',
+      title: this.carDetail?.poster.displayName +' on Nowy: '+ this.carDetail?.title,
       meta: [{
         hid: 'og-image',
         name: 'og:image',

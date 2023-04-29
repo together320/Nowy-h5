@@ -81,35 +81,37 @@ export const mutations = {
     let tempDay = 0
     let tempIdx = 0
     for (const p of ps) {
-      tempIdx = tempIdx + 1
-      let dayText = ''
-      if (dps) {
-        let rDay = dps[p.objectId]
-        for (let i = 0; i < rs_copy.length; i++) {
-          const oneR = rs_copy[i];
-          if (oneR.placeId === p.objectId) {
-            if (day === rDay) {
-              tempDay = tempDay + 1
-            } else {
-              day = rDay
-              tempDay = 1
+      if(p.hasOwnProperty('coordinate')){
+        tempIdx = tempIdx + 1
+        let dayText = ''
+        if (dps) {
+          let rDay = dps[p.objectId]
+          for (let i = 0; i < rs_copy.length; i++) {
+            const oneR = rs_copy[i];
+            if (oneR.placeId === p.objectId) {
+              if (day === rDay) {
+                tempDay = tempDay + 1
+              } else {
+                day = rDay
+                tempDay = 1
+              }
+              dayText = `${day}-${tempDay}`
             }
-            dayText = `${day}-${tempDay}`
           }
+        } else {
+          dayText = tempIdx
         }
-      } else {
-        dayText = tempIdx
-      }
-      let o = {
-        position: {
-          lat: p.coordinate.latitude, lng: p.coordinate.longitude
-        },
-        icon: {url: `https://api.nowy.io/assets/${day}.png`, labelOrigin: {x: 20, y: 10}},
-        label: {fontWeight: 'bold', fontSize: '14px', color: '#FFF', text: dayText + ''}
-      }
-      pArray.push(o)
-      if (!dps) {
-        day = day + 1
+        let o = {
+          position: {
+            lat: p.coordinate.latitude, lng: p.coordinate.longitude
+          },
+          icon: {url: `https://api.nowy.io/assets/${day}.png`, labelOrigin: {x: 20, y: 10}},
+          label: {fontWeight: 'bold', fontSize: '14px', color: '#FFF', text: dayText + ''}
+        }
+        pArray.push(o)
+        if (!dps) {
+          day = day + 1
+        }
       }
     }
     let rArray = []
@@ -125,6 +127,8 @@ export const mutations = {
       if (text) {
         let br = JSON.parse(text)
         rArray.push(br)
+      }else{
+        rArray.push({mode:r.mode?r.mode:'diriving',placeId:r.placeId?r.placeId:'',distanceText:'no data', durationText:'no data'})
       }
       if (dps) {
         let rDay = dps[r.placeId]
