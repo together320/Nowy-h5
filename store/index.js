@@ -126,9 +126,12 @@ export const mutations = {
       let text = r.route.toString();
       if (text) {
         let br = JSON.parse(text)
+        if(!br.hasOwnProperty('durationValue')){
+          br['durationValue'] = 0
+        }
         rArray.push(br)
       }else{
-        rArray.push({mode:r.mode?r.mode:'diriving',placeId:r.placeId?r.placeId:'',distanceText:'no data', durationText:'no data'})
+        rArray.push({mode:r.mode?r.mode:'diriving',placeId:r.placeId?r.placeId:'',distanceText:'no data', durationText:'no data',durationValue:0,})
       }
       if (dps) {
         let rDay = dps[r.placeId]
@@ -144,14 +147,17 @@ export const mutations = {
           rBMap.push({day: count, color: '#' + mColors[drawDay - 1]});
         }
         r.color = '#' + mColors[drawDay - 1]
-
+        r.border='dashed'
       } else {
         rMap[idx] = {day: idx + 1, color: '#'+mColors[idx]};
         r.color = '#'+mColors[idx]
+        r.border = 'dashed'
       }
     }
 
-
+    if(rs.length>0){
+      rs[rs.length-1].border='none'
+    }
     console.log(JSON.stringify(rBMap), 'rBMap')
     console.log('=====', rArray)
     console.log('+++++', pArray)

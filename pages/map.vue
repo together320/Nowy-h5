@@ -79,8 +79,8 @@
     </div>
     <div>
       <div v-for="(item,index) in postRoute.tripPlans" style="padding:10px 0 5px 0">
-        <div :style="'margin-left:15px;border-left: dashed '+item.color">
-          <div v-if="rMap.hasOwnProperty(index)" :style="index === Object.keys(rMap).length-1&&index!==0?'margin-left:2px;margin-top:-2px;':'margin-left:-13px;margin-top:-2px;'"><van-tag size="medium" :color="rMap[index].color" type="primary">{{rMap[index].day}}</van-tag></div>
+        <div :style="'margin-left:15px;border-left: '+item.border+' '+item.color">
+          <div v-if="rMap.hasOwnProperty(index)" style="margin-left:-13px;margin-top:-2px;"><van-tag size="medium" :color="rMap[index].color" type="primary">{{rMap[index].day}}</van-tag></div>
           <div style="padding-top:40px;position:absolute; margin-left:-10px;"><van-tag v-if="rBmap[index]" round size="medium" :color="rBmap[index].color" type="primary">{{rBmap[index].day}}</van-tag></div>
           <div style="padding: 0 10px 0 20px;">
         <img style="object-fit: cover; width: 100%;max-height: 140px;border-radius: 15px"
@@ -241,6 +241,7 @@ export default {
       }, 3000);
     },
     toHoursAndMinutes(totalSeconds) {
+      console.log('..............',totalSeconds)
       const totalMinutes = Math.floor(totalSeconds / 60);
 
       const seconds = totalSeconds % 60;
