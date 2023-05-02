@@ -90,6 +90,7 @@ export default {
         }, 3000);
       })
     } else {
+      window.location.href="https://nowy.io/"
       this.$notify({type: 'danger', message: "Can not find Post info. Please try again."});
     }
   },
