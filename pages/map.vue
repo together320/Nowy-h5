@@ -224,9 +224,6 @@ export default {
         postId = this.$route.query.postId
         this.$store.dispatch('getPostRoute', {postId}).then(res => {
           window.location = `nowy://${this.postRoute.postType==='plan'?'trip':'post'}/${this.$route.query.postId}`;
-          setTimeout (function(){
-            window.location = 'itms-apps://itunes.apple.com/us/app/nowy-best-travel-community/id1621810481'
-          }, 3000);
         })
       } else {
         if(process.client){
